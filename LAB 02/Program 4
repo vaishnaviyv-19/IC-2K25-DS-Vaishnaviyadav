@@ -1,105 +1,103 @@
-#include<iostream.h>
-#include<conio.h>
 
-#define MAX 5
+#include<iostream>
+using namespace std;
 
-class MS
+#define max 5
+
+class Merge
 {
-    int a[MAX];
+    int a[max], temp[max];
 
-public:
+    public:
 
-    void input()
-    {
-        cout<<"Enter array elements:";
-        for(int i=0;i<MAX;i++)
-        {
-            cin>>a[i];
-        }
-    }
-
-    void Merge_sort(int s,int e);
-    void merge(int s,int mid,int e);
-
-    void display()
-    {
-        cout<<"\nSorted array is:";
-        for(int i=0;i<MAX;i++)
-        {
-            cout<<a[i]<<" ";
-        }
-    }
+    void input();
+    void MS(int l, int r);
+    void merge(int l, int m, int r);
+    void display();
 };
 
-void MS::Merge_sort(int s,int e)
+void Merge::input()
 {
-    if(s<e)
+    cout<<"Enter array elements: ";
+
+    for(int i=0; i<max; i++)
     {
-        int mid=(s+e)/2;
-
-        Merge_sort(s,mid);
-        Merge_sort(mid+1,e);
-
-        merge(s,mid,e);
+        cin>>a[i];
     }
 }
 
-void MS::merge(int s,int mid,int e)
+void Merge::MS(int l, int r)
 {
-    int i,j,k;
-    int l1=mid-s+1;
-    int l2=e-mid;
-
-    int left_arr[5],right_arr[5];
-
-    for(int i=0;i<l1;i++)
-        left_arr[i]=a[s+i];
-
-    for(int j=0;j<l2;j++)
-        right_arr[j]=a[mid+1+j];
-
-    i=0;
-    j=0;
-    k=s;
-
-    while(i<l1 && j<l2)
+    if(l<r)
     {
-        if(left_arr[i]<=right_arr[j])
+        int m=(l+r)/2;
+
+        MS(l,m);
+        MS(m+1,r);
+
+        merge(l,m,r);
+    }
+}
+
+void Merge::merge(int l, int m, int r)
+{
+    int i=l;
+    int j=m+1;
+    int k=l;
+
+    while(i<=m && j<=r)
+    {
+        if(a[i]<a[j])
         {
-            a[k]=left_arr[i];
+            temp[k]=a[i];
             i++;
         }
         else
         {
-            a[k]=right_arr[j];
+            temp[k]=a[j];
             j++;
         }
+
         k++;
     }
 
-    while(i<l1)
+    while(i<=m)
     {
-        a[k]=left_arr[i];
+        temp[k]=a[i];
         i++;
         k++;
     }
 
-    while(j<l2)
+    while(j<=r)
     {
-        a[k]=right_arr[j];
+        temp[k]=a[j];
         j++;
         k++;
     }
+
+    for(i=l; i<=r; i++)
+    {
+        a[i]=temp[i];
+    }
 }
 
-void main()
+void Merge::display()
 {
-    clrscr();
+    cout<<"\nSorted array is: ";
 
-    MS m;
-    m.input();
-    m.Merge_sort(0,MAX-1);
-    m.display();
+    for(int i=0; i<max; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+}
 
-    getch();
+int main()
+{
+    Merge obj;
+
+    obj.input();
+    obj.MS(0,max-1);
+    obj.display();
+
+    return 0;
 }
