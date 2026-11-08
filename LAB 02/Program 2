@@ -1,59 +1,70 @@
-#include<iostream.h>
-#include<conio.h>
 
-#define MAX 5
+#include<iostream>
+using namespace std;
 
-class SS
+#define max 5
+
+class Selection
 {
-    int a[MAX];
+    int a[max];
 
-public:
+    public:
 
-    void input()
-    {
-        cout<<"Enter array elements:";
-        for(int i=0;i<MAX;i++)
-        {
-            cin>>a[i];
-        }
-    }
-
-    void Selection_sort();
-
-    void display()
-    {
-        cout<<"\nSorted array is:";
-        for(int i=0;i<MAX;i++)
-        {
-            cout<<a[i]<<" ";
-        }
-    }
+    void input();
+    void SS();
+    void display();
 };
 
-void SS::Selection_sort()
+void Selection::input()
 {
-    for(int i=0;i<MAX-1;i++)
+    cout<<"Enter array elements: ";
+
+    for(int i=0; i<max; i++)
     {
-        for(int j=i+1;j<MAX;j++)
-        {
-            if(a[i]>a[j])
-            {
-                int t=a[i];
-                a[i]=a[j];
-                a[j]=t;
-            }
-        }
+        cin>>a[i];
     }
 }
 
-void main()
+void Selection::SS()
 {
-    clrscr();
+    int min, t;
 
-    SS s;
-    s.input();
-    s.Selection_sort();
-    s.display();
+    for(int i=0; i<max-1; i++)
+    {
+        min=i;
 
-    getch();
+        for(int j=i+1; j<max; j++)
+        {
+            if(a[j]<a[min])
+            {
+                min=j;
+            }
+        }
+
+        t=a[i];
+        a[i]=a[min];
+        a[min]=t;
+    }
 }
+
+void Selection::display()
+{
+    cout<<"\nSorted array is: ";
+
+    for(int i=0; i<max; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+}
+
+int main()
+{
+    Selection obj;
+
+    obj.input();
+    obj.SS();
+    obj.display();
+
+    return 0;
+}
+
