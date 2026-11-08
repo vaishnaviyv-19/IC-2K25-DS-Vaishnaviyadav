@@ -1,62 +1,66 @@
-#include<iostream.h>
-#include<conio.h>
 
-#define MAX 5
+#include<iostream>
+using namespace std;
 
-class IS
+#define max 5
+
+class Insertion
 {
-    int a[MAX];
+    int a[max];
 
-public:
+    public:
 
-    void input()
-    {
-        cout<<"Enter array elements:";
-        for(int i=0;i<MAX;i++)
-        {
-            cin>>a[i];
-        }
-    }
-
-    void Insertion_sort();
-
-    void display()
-    {
-        cout<<"\nSorted array is:";
-        for(int i=0;i<MAX;i++)
-        {
-            cout<<a[i]<<" ";
-        }
-    }
+    void input();
+    void IS();
+    void display();
 };
 
-void IS::Insertion_sort()
+void Insertion::input()
 {
-    int temp;
+    cout<<"Enter array elements: ";
 
-    for(int i=1;i<MAX;i++)
+    for(int i=0; i<max; i++)
     {
-        temp=a[i];
-        int j=i-1;
+        cin>>a[i];
+    }
+}
 
-        while(j>=0 && a[j]>temp)
+void Insertion::IS()
+{
+    int key, j;
+
+    for(int i=1; i<max; i++)
+    {
+        key=a[i];
+        j=i-1;
+
+        while(j>=0 && a[j]>key)
         {
             a[j+1]=a[j];
             j--;
         }
 
-        a[j+1]=temp;
+        a[j+1]=key;
     }
 }
 
-void main()
+void Insertion::display()
 {
-    clrscr();
+    cout<<"\nSorted array is: ";
 
-    IS s;
-    s.input();
-    s.Insertion_sort();
-    s.display();
+    for(int i=0; i<max; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+}
 
-    getch();
+int main()
+{
+    Insertion obj;
+
+    obj.input();
+    obj.IS();
+    obj.display();
+
+    return 0;
 }
