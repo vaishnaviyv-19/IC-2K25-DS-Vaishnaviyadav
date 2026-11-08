@@ -1,0 +1,105 @@
+#include<iostream.h>
+#include<conio.h>
+
+#define MAX 5
+
+class MS
+{
+    int a[MAX];
+
+public:
+
+    void input()
+    {
+        cout<<"Enter array elements:";
+        for(int i=0;i<MAX;i++)
+        {
+            cin>>a[i];
+        }
+    }
+
+    void Merge_sort(int s,int e);
+    void merge(int s,int mid,int e);
+
+    void display()
+    {
+        cout<<"\nSorted array is:";
+        for(int i=0;i<MAX;i++)
+        {
+            cout<<a[i]<<" ";
+        }
+    }
+};
+
+void MS::Merge_sort(int s,int e)
+{
+    if(s<e)
+    {
+        int mid=(s+e)/2;
+
+        Merge_sort(s,mid);
+        Merge_sort(mid+1,e);
+
+        merge(s,mid,e);
+    }
+}
+
+void MS::merge(int s,int mid,int e)
+{
+    int i,j,k;
+    int l1=mid-s+1;
+    int l2=e-mid;
+
+    int left_arr[5],right_arr[5];
+
+    for(int i=0;i<l1;i++)
+        left_arr[i]=a[s+i];
+
+    for(int j=0;j<l2;j++)
+        right_arr[j]=a[mid+1+j];
+
+    i=0;
+    j=0;
+    k=s;
+
+    while(i<l1 && j<l2)
+    {
+        if(left_arr[i]<=right_arr[j])
+        {
+            a[k]=left_arr[i];
+            i++;
+        }
+        else
+        {
+            a[k]=right_arr[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i<l1)
+    {
+        a[k]=left_arr[i];
+        i++;
+        k++;
+    }
+
+    while(j<l2)
+    {
+        a[k]=right_arr[j];
+        j++;
+        k++;
+    }
+}
+
+void main()
+{
+    clrscr();
+
+    MS m;
+    m.input();
+    m.Merge_sort(0,MAX-1);
+    m.display();
+
+    getch();
+}
